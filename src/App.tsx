@@ -77,24 +77,31 @@ const ORIENTATION: { [key: string]: TORIENTATION } = {
   "VERTICAL": "vertical",
   "HORIZONTAL": "horizontal",
 }
+type TPLAYER = "player" | "computer" | null;
+const PLAYER: { [key: string]: TPLAYER } = {
+  PLAYER: "player",
+  COMPUTER: "computer",
+}
 
-console.log(ORIENTATION,"ORIENTATION")
+let boatsForPlayer = structuredClone(BOATS.map(b => ({
+  ...b,
+  pending: false,
+  done: false,
+})));
+
 function App() {
-
-  const [computerData, setComputerData] = useState<PLAYER_DATA>();
-  const [playerData, setPlayerData] = useState<PLAYER_DATA>();
+  const [computerData, setComputerData] = useState<TPLAYER_DATA>();
+  const [playerData, setPlayerData] = useState<TPLAYER_DATA>();
   const [boxesOver, setBoxesOver] = useState<number[]>([]);
+  // const [isConflict, setIsConflict] = useState<boolean>(false);
 
-  const [cursorPosition, setCursorPosition] = useState<any>({
-    box: 1,
-    row: 1,
-    boat: BOATS[0].squares
-  });
-  const [items, setItems] = useState<any[]>(generateItems());
-  
+  const [boatToSet, setBoatToSet] = useState<any | null>(null);
+  const [cursorPosition, setCursorPosition] = useState<any | null>(null);
+  const [items, setItems] = useState<any[]>(structuredClone(generateItems()));
+
   const isConflict = useMemo(() => {
-    return items.some((i: any) => i.filled && boxesOver.includes(i.box));
-  }, [boxesOver, items]);
+    return boatToSet && items.some((i: any) => i.filledBy === PLAYER.PLAYER && i.filled && boxesOver.includes(i.box));
+  }, [boxesOver, items, boatToSet]);
   const orientation = useRef<TORIENTATION>(ORIENTATION.HORIZONTAL);
 
   const setBoatPosition = useCallback(({ box, row, boat }: any) => {
@@ -202,7 +209,9 @@ function App() {
     if ($event.code === "Space") {
       switchOrientation();
 
-      setBoatPosition(cursorPosition);
+      if (cursorPosition) {
+        setBoatPosition(cursorPosition);
+      }
     }
   }, [cursorPosition, setBoatPosition]);
 
@@ -218,6 +227,7 @@ function App() {
   let mounted = false;
   useEffect(() => {
     if (mounted) return;
+    setItems(structuredClone(generateItems()));
 
     mounted = true;
 
@@ -263,57 +273,112 @@ function App() {
   //   })
   // }
 
-  const onMouseOverHandler = useCallback(({ box, label, col, row}: any) => {
+  const onMouseOverHandler = useCallback(({ box, label, col, row }: any) => {
     // OPTION
-    setCursorPosition({ box, row, boat: BOATS[0].squares });
-    setBoatPosition({ box, row, boat: BOATS[0].squares });
-  }, [setCursorPosition, setBoatPosition])
+    if (!boatToSet) return;
+
+    setCursorPosition({ box, row, boat: boatToSet.boat.squares });
+    setBoatPosition({ box, row, boat: boatToSet.boat.squares });
+  }, [setCursorPosition, setBoatPosition, boatToSet]);
+
+  const playerBoatsDone = useMemo(() => {
+    const squares = BOATS.map(b => b.squares).reduce((a, b) => a + b, 0);
+    return items.filter(i => i.filledBy === PLAYER.PLAYER).length === squares;
+  }, [items]);
 
   const onClickBoxHandler = useCallback(() => {
-    console.log("onClickBoxHandler", boxesOver);
+    if (playerBoatsDone) return;
+    if (!boatToSet) return;
+
     setItems((prevItems: any) => {
       return prevItems.map((i: any) => {
         if (boxesOver.includes(i.box)) {
           return {
             ...i,
             filled: true,
-          }
+            filledBy: PLAYER.PLAYER
+          };
         }
 
         return i;
       })
-    })
-  }, [boxesOver]);
+    });
+
+    setCursorPosition(null);
+    boatsForPlayer[boatToSet.key].pending = false;
+    boatsForPlayer[boatToSet.key].done = true;
+    setBoatToSet(null);
+    setBoxesOver([]);
+    setItems((prevItems) => {
+      return (prevItems.map((i, k) => {
+        i.over = false;
+
+        return i
+      }))
+    });
+  }, [boxesOver, boatToSet, playerBoatsDone]);
+
+  const onClickBoatHandler = useCallback((boat: any, key: number) => {
+    setBoatToSet({ boat, key });
+
+    boatsForPlayer = boatsForPlayer.map((b: any) => ({
+      ...b,
+      pending: false,
+    }))
+    boatsForPlayer[key].pending = true;
+  }, []);
 
   return (
     <>
-          <pre>{JSON.stringify(isConflict)}</pre>
+      <pre>{JSON.stringify(isConflict)}</pre>
       <pre>{JSON.stringify(boxesOver)}</pre>
       {/* <button onClick={update}>HIT</button> */}
 
-      <div className='flex flex-col w-full justify-center items-center'>
-        {board.map((r, rowKey) => {
-          return <div key={rowKey} className='flex'>
-            {r.map((c: any) => <div
-              className='flex'
-              key={c.label}
-              data-position={
-                `{ "col": ${c.col}, "row": ${c.row}, "box": ${c.box} }`
-              }
-              onMouseOver={() => onMouseOverHandler(c)}
-              onClick={onClickBoxHandler}
-            >
-              <div
-                className={[
-                  "w-[50px] h-[50px] flex items-center justify-center text-xs border border-dashed hover:border-2 hover:cursor-pointer hover:border-slate-600 flex-col",
-                  c.over && !isConflict ? 'bg-slate-200' : '',
-                  c.over && isConflict ? 'bg-red-200 relative' : '',
-                  c.filled ? 'bg-blue-200' : '',
-                ].join(' ')}
-              ><div></div><div className='text-xs'></div></div>
-            </div>)}
+      <div className='flex'>
+        <div className='flex flex-col w-full justify-center items-center'>
+          {board.map((r, rowKey) => {
+            return <div key={rowKey} className='flex'>
+              {r.map((c: any) => <div
+                className='flex'
+                key={c.label}
+                data-position={
+                  `{ "col": ${c.col}, "row": ${c.row}, "box": ${c.box} }`
+                }
+                onMouseOver={() => onMouseOverHandler(c)}
+                onClick={onClickBoxHandler}
+              >
+                <div
+                  className={[
+                    "w-[50px] h-[50px] flex items-center justify-center text-xs border border-dashed hover:border-2 hover:cursor-pointer hover:border-slate-600 flex-col",
+                    c.over && !isConflict && boatToSet ? 'bg-slate-200' : '',
+                    c.over && isConflict && boatToSet ? 'bg-red-200 relative' : '',
+                    // c.filled && c.filledBy === PLAYER.COMPUTER ? 'bg-slate-100' : '',
+                    c.filled && c.filledBy === PLAYER.PLAYER ? 'bg-blue-500' : '',
+                  ].join(' ')}
+                ><div></div><div className='text-xs'></div></div>
+              </div>)}
+            </div>
+          })}
+        </div>
+
+        <div className='w-full bg-slate-50'>
+          <h2>Boats</h2>
+          <div className='w-auto'>
+            {boatsForPlayer?.map((boat: any, boatKey: number) =>
+              <div className='relative border hover:border-2' key={boatKey} onClick={() => onClickBoatHandler(boat, boatKey)}>
+                <div className='w-full h-full absolute flex items-center justify-center pointer-events-none'>{boat.label}</div>
+                <div className='flex items-center justify-center pointer-events-none'>
+                  {Array.from(new Array(boat.squares)).map((_, squareKey: number) => {
+                    return <div className={[
+                      'w-[50px] h-[50px] border',
+                      boat.pending ? 'bg-orange-200' : 'bg-blue-600',
+                      boat.done ? 'bg-green-200' : 'bg-blue-600',
+                    ].join(" ")} key={squareKey}></div>
+                  })}
+                </div>
+              </div>)}
           </div>
-        })}
+        </div>
       </div>
     </>
   )
