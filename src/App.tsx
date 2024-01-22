@@ -17,6 +17,21 @@ const BOATS = [{
 const BOARD_SIZE = 10;
 const LETTERS = "ABCDEFGHIJ";
 
+type BOAT_STATUS = {
+  uuid?: string;
+  name: string;
+  damage: {
+    box: string;
+    col: number;
+    row: number;
+  }[];
+}
+
+type PLAYER_DATA = {
+  name: string;
+  boats: { [key: string]: BOAT_STATUS };
+}
+
 const generateItems = () => {
   let row = 0;
   return Array.from(new Array(BOARD_SIZE * BOARD_SIZE)).map((i, index) => {
@@ -31,7 +46,9 @@ const generateItems = () => {
       col,
       row,
       label: `${LETTERS[col - 1]}${row}`,
-      done: false
+      done: false,
+      over: false,
+      filled: false,
     };
   });
 }
@@ -60,12 +77,21 @@ const ORIENTATION: { [key: string]: TORIENTATION } = {
 
 console.log(ORIENTATION,"ORIENTATION")
 function App() {
+
+  const [computerData, setComputerData] = useState<PLAYER_DATA>();
+  const [playerData, setPlayerData] = useState<PLAYER_DATA>();
+  const [boxesOver, setBoxesOver] = useState<number[]>([]);
+
   const [cursorPosition, setCursorPosition] = useState<any>({
     box: 1,
     row: 1,
     boat: BOATS[0].squares
   });
   const [items, setItems] = useState<any[]>(generateItems());
+  
+  const isConflict = useMemo(() => {
+    return items.some((i: any) => i.filled && boxesOver.includes(i.box));
+  }, [boxesOver, items]);
   const orientation = useRef<TORIENTATION>(ORIENTATION.HORIZONTAL);
 
   const setBoatPosition = useCallback(({ box, row, boat }: any) => {
@@ -136,13 +162,13 @@ function App() {
         ];
       }
     }
-
+    setBoxesOver(boxes);
     setItems((prevItems) => {
       return (prevItems.map((i, k) => {
         if (boxes.includes(i.box)) {
-          i.done = true
+          i.over = true
         } else {
-          i.done = false
+          i.over = false
         }
 
         return i
@@ -207,8 +233,26 @@ function App() {
     setBoatPosition({ box, row, boat: BOATS[0].squares });
   }, [setCursorPosition, setBoatPosition])
 
+  const onClickBoxHandler = useCallback(() => {
+    console.log("onClickBoxHandler", boxesOver);
+    setItems((prevItems: any) => {
+      return prevItems.map((i: any) => {
+        if (boxesOver.includes(i.box)) {
+          return {
+            ...i,
+            filled: true,
+          }
+        }
+
+        return i;
+      })
+    })
+  }, [boxesOver]);
+
   return (
     <>
+          <pre>{JSON.stringify(isConflict)}</pre>
+      <pre>{JSON.stringify(boxesOver)}</pre>
       {/* <button onClick={update}>HIT</button> */}
 
       <div className='flex flex-col w-full justify-center items-center'>
@@ -221,11 +265,14 @@ function App() {
                 `{ "col": ${c.col}, "row": ${c.row}, "box": ${c.box} }`
               }
               onMouseOver={() => onMouseOverHandler(c)}
+              onClick={onClickBoxHandler}
             >
               <div
                 className={[
-                  "w-[50px] h-[50px] flex items-center justify-center text-xs border border-solid hover:border-2 hover:cursor-pointer hover:border-slate-600 flex-col relative z-10",
-                  c.done ? 'bg-red-200' : '',
+                  "w-[50px] h-[50px] flex items-center justify-center text-xs border border-dashed hover:border-2 hover:cursor-pointer hover:border-slate-600 flex-col",
+                  c.over && !isConflict ? 'bg-slate-200' : '',
+                  c.over && isConflict ? 'bg-red-200 relative' : '',
+                  c.filled ? 'bg-blue-200' : '',
                 ].join(' ')}
               ><div></div><div className='text-xs'></div></div>
             </div>)}
