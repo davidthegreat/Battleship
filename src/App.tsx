@@ -4,14 +4,17 @@ import './App.css'
 import { randomNumber } from './utils';
 
 const BOATS = [{
-  label: "Battleship",
+  label: "Aircraft",
   squares: 5,
 }, {
-  label: "Destroyer",
+  label: "Battleship",
   squares: 4,
 }, {
   label: "Destroyer",
-  squares: 4,
+  squares: 3,
+}, {
+  label: "Submarine",
+  squares: 3,
 }];
 
 const BOARD_SIZE = 10;
@@ -115,17 +118,23 @@ function App() {
       const outLeft = Math.max(0, (BOARD_SIZE * (row - 1)) - (boxes[0] + 1) + boxLeft);
       const outRight = Math.max(0, ((boxes[boxes.length - 1]) - (BOARD_SIZE * row)));
 
+      // validates that the boat user is trying to place doesn't 
+      // wrap around to the left of board
       if (outLeft > 0) {
         boxes = [
-          ...boxes.slice(outLeft),
+          ...Array.from(new Array(outLeft + boxRight)).map((_, k) => box + (k + 1)).reverse(),
+          box,
           ...Array.from(new Array(outLeft + boxRight)).map((_, k) => box + (k + 1))
-        ]
+        ];
       }
+      // validates that the boat user is trying to place doesn't 
+      // wrap around to the right of board
       if (outRight > 0) {
         boxes = [
-          ...Array.from(new Array(boxLeft + outRight)).map((_, k) => box - (k + 1)).reverse(),
-          ...boxes.slice(0, boxes.length - outRight),
-        ]
+          ...Array.from(new Array(outRight + boxLeft)).map((_, k) => box - (k + 1)).reverse(),
+          box,
+          ...Array.from(new Array(boxRight - outRight)).map((_, k) => box + (k + 1)),
+        ];
       }
     }
 
@@ -143,22 +152,28 @@ function App() {
         })
       ];
 
-      const outTop = boxes.filter(i => i < 0).length;
+      const outTop = boxes.filter(i => i <= 0).length;
       const outBottom = boxes.filter(i => i > 100).length;
 
       if (outTop > 0) {
         boxes = [
-          ...boxes.slice(outTop),
-          ...Array.from(new Array(rest)).map((_, k) => {
-            return box +  ((k +  outTop) * BOARD_SIZE)
+          ...Array.from(new Array(boxTop - outTop)).map((_, k) => {
+            return box - ((k + 1) * BOARD_SIZE)
+          }),
+          box,
+          ...Array.from(new Array(outTop + boxBottom)).map((_, k) => {
+            return box + ((k + 1) * BOARD_SIZE)
           })
         ];
       } else if (outBottom > 0) {
         boxes = [
-          ...Array.from(new Array(rest)).map((_, k) => {
-            return box - ((k +  outBottom) * BOARD_SIZE)
-          }),
-          ...boxes.slice(0, -outBottom),
+          ...Array.from(new Array(boxTop + outBottom)).map((_, k) => {
+            return box - ((k + 1) * BOARD_SIZE)
+          }).reverse(),
+          box,
+          ...Array.from(new Array(boxBottom - outBottom)).map((_, k) => {
+            return box + ((k + 1) * BOARD_SIZE)
+          })
         ];
       }
     }
@@ -173,7 +188,8 @@ function App() {
 
         return i
       }))
-    })
+    });
+    return boxes;
   }, [orientation])
 
   const switchOrientation = () => {
@@ -198,21 +214,41 @@ function App() {
     }
   }, [onKeydownHandler])
 
-  // INIT
+  // auto position computer boats
   let mounted = false;
   useEffect(() => {
     if (mounted) return;
 
     mounted = true;
 
-    const box = randomNumber(1, BOARD_SIZE * BOARD_SIZE);
-    const row = Math.ceil(box / BOARD_SIZE);
-    const boat = (BOATS[randomNumber(0, 2)]).squares;
+    const boats: any[] = [...BOATS];
+    let _items = structuredClone(items);
+    console.log(boats,"sss")
+    while (boats.length) {
+      const boat = (boats.pop());
+      const box = randomNumber(1, BOARD_SIZE * BOARD_SIZE);
+      const row = Math.ceil(box / BOARD_SIZE);
+      orientation.current = [ORIENTATION.VERTICAL, ORIENTATION.HORIZONTAL][randomNumber(0, 1)];
 
-    orientation.current = [ORIENTATION.VERTICAL, ORIENTATION.HORIZONTAL][randomNumber(0, 1)];
+      const boxes = setBoatPosition({ box, row, boat: boat?.squares });
 
-    setCursorPosition({ box, row, boat });
-    setBoatPosition({ box, row, boat });
+      const conflict = _items.some((i: any) => i.filled && boxes.includes(i.box));
+      if (conflict) {
+        boats.push(boat);
+
+        continue;
+      }
+
+      _items = _items.map((i: any) => {
+        if (boxes.includes(i.box)) {
+          return { ...i, filled: true };
+        }
+
+        return i;
+      })
+    }
+    setItems(_items)
+
   }, [])
 
   const board = useMemo(() => {
