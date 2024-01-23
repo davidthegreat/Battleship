@@ -3,22 +3,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 import { randomNumber } from './utils';
 
-const BOATS = [{
-  label: "Aircraft",
-  squares: 5,
-}, {
-  label: "Battleship",
-  squares: 4,
-}, {
-  label: "Destroyer",
-  squares: 3,
-}, {
-  label: "Submarine",
-  squares: 3,
-}];
 
-const BOARD_SIZE = 10;
-const LETTERS = "ABCDEFGHIJ";
+import { TPOSITION } from './types';
+import { BOARD_SIZE, BOATS, POSITION, PLAYER } from './constants';
+import { createBoard, generateItems } from './methods';
+
 
 type BOAT_STATUS = {
   uuid?: string;
@@ -35,53 +24,6 @@ type PLAYER_DATA = {
   boats: { [key: string]: BOAT_STATUS };
 }
 
-const generateItems = () => {
-  let row = 0;
-  return Array.from(new Array(BOARD_SIZE * BOARD_SIZE)).map((i, index) => {
-    if (index % BOARD_SIZE === 0) {
-      row++;
-    }
-
-    const col = (index % BOARD_SIZE + 1);
-
-    return {
-      box: index + 1,
-      col,
-      row,
-      label: `${LETTERS[col - 1]}${row}`,
-      done: false,
-      over: false,
-      filled: false,
-    };
-  });
-}
-console.log(generateItems(),"generateItems")
-
-const createBoard = (items: any[]) => {
-  let row: any[] = [];
-  return items.reduce((a: any[], b: any) => {
-    if ((b.col % BOARD_SIZE) === 0) {
-      row.push(b);
-      a.push(row);
-      row = [];
-    } else {
-      row.push(b);
-    }
-
-    return a;
-  }, [])
-}
-
-type TORIENTATION = "vertical" | "horizontal";
-const ORIENTATION: { [key: string]: TORIENTATION } = {
-  "VERTICAL": "vertical",
-  "HORIZONTAL": "horizontal",
-}
-type TPLAYER = "player" | "computer" | null;
-const PLAYER: { [key: string]: TPLAYER } = {
-  PLAYER: "player",
-  COMPUTER: "computer",
-}
 
 let boatsForPlayer = structuredClone(BOATS.map(b => ({
   ...b,
@@ -102,11 +44,11 @@ function App() {
   const isConflict = useMemo(() => {
     return boatToSet && items.some((i: any) => i.filledBy === PLAYER.PLAYER && i.filled && boxesOver.includes(i.box));
   }, [boxesOver, items, boatToSet]);
-  const orientation = useRef<TORIENTATION>(ORIENTATION.HORIZONTAL);
+  const orientation = useRef<TPOSITION>(POSITION.HORIZONTAL);
 
   const setBoatPosition = useCallback(({ box, row, boat }: any) => {
-    const horizontal = orientation.current === ORIENTATION.HORIZONTAL;
-    const vertical = orientation.current === ORIENTATION.VERTICAL;
+    const horizontal = orientation.current === POSITION.HORIZONTAL;
+    const vertical = orientation.current === POSITION.VERTICAL;
 
     let boxes = [box]
     const even = Boolean(boat % 2);
@@ -200,9 +142,9 @@ function App() {
   }, [orientation])
 
   const switchOrientation = () => {
-    orientation.current = orientation.current === ORIENTATION.HORIZONTAL
-      ? ORIENTATION.VERTICAL
-      : ORIENTATION.HORIZONTAL;
+    orientation.current = orientation.current === POSITION.HORIZONTAL
+      ? POSITION.VERTICAL
+      : POSITION.HORIZONTAL;
   }
 
   const onKeydownHandler = useCallback(async ($event: any) => {
@@ -238,7 +180,7 @@ function App() {
       const boat = (boats.pop());
       const box = randomNumber(1, BOARD_SIZE * BOARD_SIZE);
       const row = Math.ceil(box / BOARD_SIZE);
-      orientation.current = [ORIENTATION.VERTICAL, ORIENTATION.HORIZONTAL][randomNumber(0, 1)];
+      orientation.current = [POSITION.VERTICAL, POSITION.HORIZONTAL][randomNumber(0, 1)];
 
       const boxes = setBoatPosition({ box, row, boat: boat?.squares });
 
