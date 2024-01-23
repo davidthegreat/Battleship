@@ -1,4 +1,4 @@
-import { BOAT, TPOSITION, TPLAYER_TYPE } from "../types";
+import { BOAT, TPOSITION, TPLAYER_TYPE, TSHOT_VALUE } from "../types";
 
 export const BOARD_SIZE = 10;
 export const LETTERS = "ABCDEFGHIJ";
@@ -23,6 +23,12 @@ export const POSITION: { [key: string]: TPOSITION } = {
 }
 
 export const PLAYER: { [key: string]: TPLAYER_TYPE } = {
-	PLAYER: "player",
+	HUMAN: "human",
 	COMPUTER: "computer",
+}
+
+
+export const SHOT_VALUE: { [key: string]: TSHOT_VALUE } = {
+	TOUCH: "touch",
+	WATER: "water",
 }

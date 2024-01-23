@@ -4,8 +4,8 @@ import './App.css'
 import { randomNumber } from './utils';
 
 
-import { TPOSITION } from './types';
-import { BOARD_SIZE, BOATS, POSITION, PLAYER } from './constants';
+import { TPOSITION, BOARD_ITEM } from './types';
+import { BOARD_SIZE, BOATS, POSITION, PLAYER, SHOT_VALUE } from './constants';
 import { createBoard, generateItems } from './methods';
 
 type BOAT_STATUS = {
@@ -237,6 +237,21 @@ function App() {
     }
   }, [playersAreReady])
 
+  const onClickBoxToShotHandler = useCallback(({ box }: any) => {
+    setItems((prevItems: BOARD_ITEM[]) => {
+      return prevItems.map((item: BOARD_ITEM) => {
+        const isComputerBoat = item.player[PLAYER.COMPUTER].filled;
+        if (item.box === box) {
+          item.player[PLAYER.HUMAN].shot = isComputerBoat
+            ? SHOT_VALUE.TOUCH
+            : SHOT_VALUE.WATER;
+        }
+
+        return item;
+      })
+    });
+  }, [])
+
   // const update = () => {
   //   setItems((prevItems) => {
   //     prevItems[35].done = true;
@@ -245,7 +260,7 @@ function App() {
   //   })
   // }
 
-  const onMouseOverHandler = useCallback(({ box, label, col, row }: any) => {
+  const onMouseOverToSetBoatHandler = useCallback(({ box, label, col, row }: any) => {
     // OPTION
     if (!boatToSet) return;
 
@@ -258,7 +273,7 @@ function App() {
     return items.filter(i => i.player[PLAYER.HUMAN].filled).length === squares;
   }, [items]);
 
-  const onClickBoxHandler = useCallback(() => {
+  const onClickToSetBoatHandler = useCallback(() => {
     if (playerBoatsDone) return;
     if (!boatToSet) return;
 
@@ -311,7 +326,7 @@ function App() {
     <>
       <pre>{JSON.stringify(isConflict)}</pre>
       <pre>{JSON.stringify(boxesOver)}</pre>
-      <pre>{JSON.stringify(gameReady)}</pre>
+      <pre>{JSON.stringify(gameReady)} gameReady</pre>
       {/* <button onClick={update}>HIT</button> */}
 
       <div className='flex'>
@@ -324,8 +339,11 @@ function App() {
                 data-position={
                   `{ "col": ${c.col}, "row": ${c.row}, "box": ${c.box} }`
                 }
-                onMouseOver={() => onMouseOverHandler(c)}
-                onClick={onClickBoxHandler}
+                onMouseOver={() => onMouseOverToSetBoatHandler(c)}
+                onClick={() => gameReady
+                  ? onClickBoxToShotHandler({ box: c.box })
+                  : onClickToSetBoatHandler()
+                }
               >
                 <div
                   className={[

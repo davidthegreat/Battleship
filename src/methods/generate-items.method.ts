@@ -19,9 +19,11 @@ const generateItems = (): BOARD_ITEM[] => {
 			player: {
 				[PLAYER.HUMAN]: {
 					filled: false,
+					shot: null,
 				},
 				[PLAYER.COMPUTER]: {
 					filled: false,
+					shot: null,
 				},
 			},
 		};
