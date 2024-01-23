@@ -42,7 +42,9 @@ function App() {
   const [items, setItems] = useState<any[]>(structuredClone(generateItems()));
 
   const isConflict = useMemo(() => {
-    return boatToSet && items.some((i: any) => i.filledBy === PLAYER.PLAYER && i.filled && boxesOver.includes(i.box));
+    return boatToSet && items.some((i: any) => {
+      return i.player[PLAYER.HUMAN].filled && boxesOver.includes(i.box);
+    });
   }, [boxesOver, items, boatToSet]);
   const orientation = useRef<TPOSITION>(POSITION.HORIZONTAL);
 
@@ -184,7 +186,9 @@ function App() {
 
       const boxes = setBoatPosition({ box, row, boat: boat?.squares });
 
-      const conflict = _items.some((i: any) => i.filled && boxes.includes(i.box));
+      const conflict = _items.some((i: any) => {
+        return i.player[PLAYER.COMPUTER].filled && boxes.includes(i.box);
+      });
       if (conflict) {
         boats.push(boat);
 
@@ -193,7 +197,16 @@ function App() {
 
       _items = _items.map((i: any) => {
         if (boxes.includes(i.box)) {
-          return { ...i, filled: true };
+          return { 
+            ...i, 
+            player: {
+              ...i.player,
+              [PLAYER.COMPUTER]: {
+                ...i.player[PLAYER.COMPUTER],
+                filled: true,
+              }
+            },
+          };
         }
 
         return i;
@@ -225,7 +238,7 @@ function App() {
 
   const playerBoatsDone = useMemo(() => {
     const squares = BOATS.map(b => b.squares).reduce((a, b) => a + b, 0);
-    return items.filter(i => i.filledBy === PLAYER.PLAYER).length === squares;
+    return items.filter(i => i.player[PLAYER.HUMAN].filled).length === squares;
   }, [items]);
 
   const onClickBoxHandler = useCallback(() => {
@@ -237,8 +250,13 @@ function App() {
         if (boxesOver.includes(i.box)) {
           return {
             ...i,
-            filled: true,
-            filledBy: PLAYER.PLAYER
+            player: {
+              ...i.player,
+              [PLAYER.HUMAN]: {
+                ...i.player[PLAYER.HUMAN],
+                filled: true,
+              }
+            },
           };
         }
 
@@ -294,7 +312,7 @@ function App() {
                     "w-[50px] h-[50px] flex items-center justify-center text-xs border border-dashed hover:border-2 hover:cursor-pointer hover:border-slate-600 flex-col",
                     c.over && !isConflict && boatToSet ? 'bg-slate-200' : '',
                     c.over && isConflict && boatToSet ? 'bg-red-200 relative' : '',
-                    // c.filled && c.filledBy === PLAYER.COMPUTER ? 'bg-slate-100' : '',
+                    c.player[PLAYER.HUMAN].filled ? 'bg-blue-500' : '',
                     c.filled && c.filledBy === PLAYER.PLAYER ? 'bg-blue-500' : '',
                   ].join(' ')}
                 ><div></div><div className='text-xs'></div></div>
