@@ -8,7 +8,6 @@ import { TPOSITION } from './types';
 import { BOARD_SIZE, BOATS, POSITION, PLAYER } from './constants';
 import { createBoard, generateItems } from './methods';
 
-
 type BOAT_STATUS = {
   uuid?: string;
   name: string;
@@ -36,10 +35,22 @@ function App() {
   const [playerData, setPlayerData] = useState<TPLAYER_DATA>();
   const [boxesOver, setBoxesOver] = useState<number[]>([]);
   // const [isConflict, setIsConflict] = useState<boolean>(false);
+  const [gameReady, setGameReady] = useState<boolean>(false);
+  const [gameStarted, setGameStarted] = useState<boolean>(false);
 
   const [boatToSet, setBoatToSet] = useState<any | null>(null);
   const [cursorPosition, setCursorPosition] = useState<any | null>(null);
   const [items, setItems] = useState<any[]>(structuredClone(generateItems()));
+
+  const playersAreReady = useMemo(() => {
+    const boatsLeng = BOATS.map((boat) => boat.squares)
+      .reduce((accumulator, current) => accumulator + current, 0);
+    const computerIsReady = items.filter((item) => item.player[PLAYER.COMPUTER]?.filled).length === boatsLeng;
+    const humanIsReady = items.filter((item) => item.player[PLAYER.HUMAN]?.filled).length === boatsLeng;
+
+    return computerIsReady && humanIsReady;
+  }, [items])
+
 
   const isConflict = useMemo(() => {
     return boatToSet && items.some((i: any) => {
@@ -214,11 +225,17 @@ function App() {
     }
     setItems(_items)
 
-  }, [])
+  }, [gameStarted])
 
   const board = useMemo(() => {
     return createBoard(items);
   }, [items])
+
+  const onClickStartGame = useCallback(() => {
+    if (playersAreReady) {
+      setGameReady(true);
+    }
+  }, [playersAreReady])
 
   // const update = () => {
   //   setItems((prevItems) => {
@@ -278,6 +295,8 @@ function App() {
     });
   }, [boxesOver, boatToSet, playerBoatsDone]);
 
+
+
   const onClickBoatHandler = useCallback((boat: any, key: number) => {
     setBoatToSet({ boat, key });
 
@@ -292,6 +311,7 @@ function App() {
     <>
       <pre>{JSON.stringify(isConflict)}</pre>
       <pre>{JSON.stringify(boxesOver)}</pre>
+      <pre>{JSON.stringify(gameReady)}</pre>
       {/* <button onClick={update}>HIT</button> */}
 
       <div className='flex'>
@@ -309,7 +329,7 @@ function App() {
               >
                 <div
                   className={[
-                    "w-[50px] h-[50px] flex items-center justify-center text-xs border border-dashed hover:border-2 hover:cursor-pointer hover:border-slate-600 flex-col",
+                    "w-[50px] h-[50px] flex items-center justify-center text-xs border border-solid hover:border-2 hover:cursor-pointer hover:border-slate-600 flex-col",
                     c.over && !isConflict && boatToSet ? 'bg-slate-200' : '',
                     c.over && isConflict && boatToSet ? 'bg-red-200 relative' : '',
                     c.player[PLAYER.HUMAN].filled ? 'bg-blue-500' : '',
@@ -321,7 +341,7 @@ function App() {
           })}
         </div>
 
-        <div className='w-full bg-slate-50'>
+      {!gameReady && <div className='w-full bg-slate-50 p-4'>
           <h2>Boats</h2>
           <div className='w-auto'>
             {boatsForPlayer?.map((boat: any, boatKey: number) =>
@@ -338,8 +358,26 @@ function App() {
                 </div>
               </div>)}
           </div>
-        </div>
-      </div>
+
+          <div className='mt-12'>
+              <button
+                className={[
+                  "text-2xl py-2 px-6 bg-blue-600 text-white rounded-lg hover:bg-blue-800 hover:cursor-pointer",
+                  !playerBoatsDone ? "cursor-not-allowed disabled:bg-gray-400" : ''
+                ].join(" ")}
+                disabled={!playersAreReady}
+                onClick={onClickStartGame}
+              >start</button>
+            </div>
+          </div>}
+          {gameReady && <div className='w-full p-4'>
+            <h2>Scores</h2>
+
+            <div className='w-auto space-y-4'>
+              ...
+            </div>
+          </div>}      
+          </div>
     </>
   )
 }
