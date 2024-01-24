@@ -42,6 +42,9 @@ function App() {
   const [cursorPosition, setCursorPosition] = useState<any | null>(null);
   const [items, setItems] = useState<any[]>(structuredClone(generateItems()));
 
+
+  const [hideBoats, setHideBoats] = useState<boolean>(false);
+
   const playersAreReady = useMemo(() => {
     const boatsLeng = BOATS.map((boat) => boat.squares)
       .reduce((accumulator, current) => accumulator + current, 0);
@@ -260,8 +263,7 @@ function App() {
   //   })
   // }
 
-  const onMouseOverToSetBoatHandler = useCallback(({ box, label, col, row }: any) => {
-    // OPTION
+  const onMouseOverToSetBoatHandler = useCallback(({ box, row }: any) => {
     if (!boatToSet) return;
 
     setCursorPosition({ box, row, boat: boatToSet.boat.squares });
@@ -352,6 +354,10 @@ function App() {
                     c.over && isConflict && boatToSet ? 'bg-red-200 relative' : '',
                     c.player[PLAYER.HUMAN].filled ? 'bg-blue-500' : '',
                     c.filled && c.filledBy === PLAYER.PLAYER ? 'bg-blue-500' : '',
+                    c.player[PLAYER.HUMAN].shot === SHOT_VALUE.TOUCH ? 'border-red-400 border-2' : '',
+                    c.player[PLAYER.HUMAN].shot === SHOT_VALUE.WATER ? 'border-blue-400 border-2' : '',
+                    !hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-500' : '',
+                    hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-50' : '',
                   ].join(' ')}
                 ><div></div><div className='text-xs'></div></div>
               </div>)}
