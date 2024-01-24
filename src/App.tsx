@@ -1,28 +1,10 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-
 import './App.css'
+
 import { randomNumber } from './utils';
-
-
-import { TPOSITION, BOARD_ITEM } from './types';
+import { TPOSITION, BOARD_ITEM, TPLAYER_TYPE } from './types';
 import { BOARD_SIZE, BOATS, POSITION, PLAYER, SHOT_VALUE } from './constants';
 import { createBoard, generateItems } from './methods';
-
-type BOAT_STATUS = {
-  uuid?: string;
-  name: string;
-  damage: {
-    box: string;
-    col: number;
-    row: number;
-  }[];
-}
-
-type PLAYER_DATA = {
-  name: string;
-  boats: { [key: string]: BOAT_STATUS };
-}
-
 
 let boatsForPlayer = structuredClone(BOATS.map(b => ({
   ...b,
@@ -31,19 +13,18 @@ let boatsForPlayer = structuredClone(BOATS.map(b => ({
 })));
 
 function App() {
-  const [computerData, setComputerData] = useState<TPLAYER_DATA>();
-  const [playerData, setPlayerData] = useState<TPLAYER_DATA>();
   const [boxesOver, setBoxesOver] = useState<number[]>([]);
-  // const [isConflict, setIsConflict] = useState<boolean>(false);
   const [gameReady, setGameReady] = useState<boolean>(false);
-  const [gameStarted, setGameStarted] = useState<boolean>(false);
+  const [gameStarted] = useState<boolean>(false);
 
   const [boatToSet, setBoatToSet] = useState<any | null>(null);
   const [cursorPosition, setCursorPosition] = useState<any | null>(null);
   const [items, setItems] = useState<any[]>(structuredClone(generateItems()));
 
-
   const [hideBoats, setHideBoats] = useState<boolean>(false);
+  const [turn, setTurn] = useState<TPLAYER_TYPE | null>(null);
+
+  const orientation = useRef<TPOSITION>(POSITION.HORIZONTAL);
 
   const playersAreReady = useMemo(() => {
     const boatsLeng = BOATS.map((boat) => boat.squares)
@@ -54,14 +35,12 @@ function App() {
     return computerIsReady && humanIsReady;
   }, [items])
 
-
   const isConflict = useMemo(() => {
     return boatToSet && items.some((i: any) => {
       return i.player[PLAYER.HUMAN].filled && boxesOver.includes(i.box);
     });
   }, [boxesOver, items, boatToSet]);
-  const orientation = useRef<TPOSITION>(POSITION.HORIZONTAL);
-
+  
   const setBoatPosition = useCallback(({ box, row, boat }: any) => {
     const horizontal = orientation.current === POSITION.HORIZONTAL;
     const vertical = orientation.current === POSITION.VERTICAL;
@@ -157,30 +136,6 @@ function App() {
     return boxes;
   }, [orientation])
 
-  const switchOrientation = () => {
-    orientation.current = orientation.current === POSITION.HORIZONTAL
-      ? POSITION.VERTICAL
-      : POSITION.HORIZONTAL;
-  }
-
-  const onKeydownHandler = useCallback(async ($event: any) => {
-    if ($event.code === "Space") {
-      switchOrientation();
-
-      if (cursorPosition) {
-        setBoatPosition(cursorPosition);
-      }
-    }
-  }, [cursorPosition, setBoatPosition]);
-
-  useEffect(() => {
-    document.addEventListener("keydown", onKeydownHandler);
-
-    return () => {
-      document.removeEventListener("keydown", onKeydownHandler);
-    }
-  }, [onKeydownHandler])
-
   // auto position computer boats
   let mounted = false;
   useEffect(() => {
@@ -238,6 +193,7 @@ function App() {
     if (playersAreReady) {
       setGameReady(true);
     }
+    setHideBoats((prev) => !prev)
   }, [playersAreReady])
 
   const onClickBoxToShotHandler = useCallback(({ box }: any) => {
@@ -253,15 +209,10 @@ function App() {
         return item;
       })
     });
+    setTurn(PLAYER.COMPUTER);
   }, [])
 
-  // const update = () => {
-  //   setItems((prevItems) => {
-  //     prevItems[35].done = true;
 
-  //     return structuredClone(prevItems);
-  //   })
-  // }
 
   const onMouseOverToSetBoatHandler = useCallback(({ box, row }: any) => {
     if (!boatToSet) return;
@@ -324,15 +275,116 @@ function App() {
     boatsForPlayer[key].pending = true;
   }, []);
 
+
+//////////////////////////////////////////////
+const totalPosibleScores = BOATS.map((boat) => boat.squares).reduce((a, b) => a + b, 0);
+
+const humanScores = useMemo(() => {
+  return items.filter((item) => {
+    return item.player[PLAYER.HUMAN].shot === SHOT_VALUE.TOUCH;
+  }).length;
+}, [items]);
+
+const computerScores = useMemo(() => {
+  return items.filter((item) => {
+    return item.player[PLAYER.COMPUTER].shot === SHOT_VALUE.TOUCH;
+  }).length;
+}, [items]);
+
+const computerWins = useMemo(() => {
+  return computerScores === totalPosibleScores;
+}, [computerScores])
+
+const humanWins = useMemo(() => {
+  return humanScores === totalPosibleScores;
+}, [humanScores])
+
+
+
+  /////////////////////////////////////////////////
+  const computerTurnAction = useCallback(async () => {
+    await new Promise((resolve) => setTimeout(() => resolve(null), 1000));
+
+    const allowedBoxes = items.filter((item) => !item.player[PLAYER.COMPUTER].shot);
+    const box = randomNumber(0, allowedBoxes.length);
+    const alreadyDone = items.find((item, itemIndex) => (
+      itemIndex === box && item.player[PLAYER.COMPUTER].shot
+    ));
+
+    if (alreadyDone) {
+      computerTurnAction();
+      return;
+    }
+
+    setItems((prevItems: BOARD_ITEM[]) => {
+      return prevItems.map((item: BOARD_ITEM) => {
+        const isHumanBoat = item.player[PLAYER.HUMAN].filled;
+        if (item.box === box) {
+          item.player[PLAYER.COMPUTER].shot = isHumanBoat
+            ? SHOT_VALUE.TOUCH
+            : SHOT_VALUE.WATER;
+        }
+
+        return item;
+      });
+    });
+
+    setTurn(PLAYER.HUMAN);
+  }, [items]);
+
+  useEffect(() => {
+    if (turn === PLAYER.COMPUTER) {
+      computerTurnAction();
+    }
+  }, [turn, computerTurnAction]);
+
+
+
+
+  const resetGame = () => {
+    window.location.reload();
+  };
+
+  if (computerWins) {
+    return <div className='flex'>
+      <div className='absolute z-10 inset-0 w-full h-full bg-white text-red-600 flex items-center justify-center flex-col'>
+        <div className='text-8xl'>
+          You lost!!
+        </div>
+        <button
+          onClick={resetGame}
+          className='py-2 px-4 bg-blue-800 text-white hover:bg-blue-950 mt-12 rounded-full'
+        >
+          reset game
+        </button>
+      </div>
+    </div>
+  }
+
+  if (humanWins) {
+    return <div className='flex'>
+      <div className='absolute z-10 inset-0 w-full h-full bg-white text-red-600 flex items-center justify-center flex-col'>
+        <div className='text-8xl'>
+          You win!!!
+        </div>
+        <button
+          onClick={resetGame}
+          className='py-2 px-4 bg-blue-800 text-white hover:bg-blue-950 mt-12 rounded-full'
+        >
+          reset game
+        </button>
+      </div>
+    </div>
+  }
+
   return (
     <>
-      <pre>{JSON.stringify(isConflict)}</pre>
-      <pre>{JSON.stringify(boxesOver)}</pre>
-      <pre>{JSON.stringify(gameReady)} gameReady</pre>
-      {/* <button onClick={update}>HIT</button> */}
 
       <div className='flex'>
         <div className='flex flex-col w-full justify-center items-center'>
+        {turn === PLAYER.COMPUTER && <div className='absolute inset-0 w-full h-full bg-white bg-opacity-80 flex items-center justify-center'>
+                  Computer is thinking
+                </div>}
           {board.map((r, rowKey) => {
             return <div key={rowKey} className='flex'>
               {r.map((c: any) => <div
@@ -348,18 +400,17 @@ function App() {
                 }
               >
                 <div
-                  className={[
-                    "w-[50px] h-[50px] flex items-center justify-center text-xs border border-solid hover:border-2 hover:cursor-pointer hover:border-slate-600 flex-col",
-                    c.over && !isConflict && boatToSet ? 'bg-slate-200' : '',
-                    c.over && isConflict && boatToSet ? 'bg-red-200 relative' : '',
-                    c.player[PLAYER.HUMAN].filled ? 'bg-blue-500' : '',
-                    c.filled && c.filledBy === PLAYER.PLAYER ? 'bg-blue-500' : '',
-                    c.player[PLAYER.HUMAN].shot === SHOT_VALUE.TOUCH ? 'border-red-400 border-2' : '',
-                    c.player[PLAYER.HUMAN].shot === SHOT_VALUE.WATER ? 'border-blue-400 border-2' : '',
-                    !hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-500' : '',
-                    hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-50' : '',
-                  ].join(' ')}
-                ><div></div><div className='text-xs'></div></div>
+                        className={[
+                          "w-[50px] h-[50px] flex items-center justify-center text-xs border border-solid flex-col",
+                          c.player[PLAYER.HUMAN].shot === SHOT_VALUE.TOUCH ? 'border-red-400 border-2' : '',
+                          c.player[PLAYER.HUMAN].shot === SHOT_VALUE.WATER ? 'border-blue-400 border-2' : '',
+                          c.player[PLAYER.COMPUTER].shot === SHOT_VALUE.TOUCH ? 'bg-red-400' : '',
+                          c.over && !isConflict && boatToSet ? 'bg-slate-200' : '',
+                          c.over && isConflict && boatToSet ? 'bg-red-200 relative' : '',
+                          !hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-500' : '',
+                          hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-50' : '',
+                        ].join(' ')}
+                ><div></div></div>
               </div>)}
             </div>
           })}
@@ -393,14 +444,7 @@ function App() {
                 onClick={onClickStartGame}
               >start</button>
             </div>
-          </div>}
-          {gameReady && <div className='w-full p-4'>
-            <h2>Scores</h2>
-
-            <div className='w-auto space-y-4'>
-              ...
-            </div>
-          </div>}      
+          </div>}     
           </div>
     </>
   )
