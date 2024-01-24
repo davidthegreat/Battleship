@@ -338,9 +338,6 @@ const humanWins = useMemo(() => {
     }
   }, [turn, computerTurnAction]);
 
-
-
-
   const resetGame = () => {
     window.location.reload();
   };
@@ -379,12 +376,11 @@ const humanWins = useMemo(() => {
 
   return (
     <>
-
       <div className='flex'>
         <div className='flex flex-col w-full justify-center items-center'>
-        {turn === PLAYER.COMPUTER && <div className='absolute inset-0 w-full h-full bg-white bg-opacity-80 flex items-center justify-center'>
-                  Computer is thinking
-                </div>}
+          {turn === PLAYER.COMPUTER && <div className='absolute inset-0 w-full h-full bg-white bg-opacity-80 flex items-center justify-center'>
+            Computer is thinking
+          </div>}
           {board.map((r, rowKey) => {
             return <div key={rowKey} className='flex'>
               {r.map((c: any) => <div
@@ -398,19 +394,19 @@ const humanWins = useMemo(() => {
                   ? onClickBoxToShotHandler({ box: c.box })
                   : onClickToSetBoatHandler()
                 }
-              >
+                >
                 <div
-                        className={[
-                          "w-[50px] h-[50px] flex items-center justify-center text-xs border border-solid flex-col",
-                          c.player[PLAYER.HUMAN].shot === SHOT_VALUE.TOUCH ? 'border-red-400 border-2' : '',
-                          c.player[PLAYER.HUMAN].shot === SHOT_VALUE.WATER ? 'border-blue-400 border-2' : '',
-                          c.player[PLAYER.COMPUTER].shot === SHOT_VALUE.TOUCH ? 'bg-red-400' : '',
-                          c.over && !isConflict && boatToSet ? 'bg-slate-200' : '',
-                          c.over && isConflict && boatToSet ? 'bg-red-200 relative' : '',
-                          !hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-500' : '',
-                          hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-50' : '',
-                        ].join(' ')}
-                ><div></div></div>
+                  className={[
+                    "w-[50px] h-[50px] flex items-center justify-center text-xs border border-solid flex-col",
+                    c.player[PLAYER.HUMAN].shot === SHOT_VALUE.TOUCH ? 'border-red-400 border-2' : '',
+                    c.player[PLAYER.HUMAN].shot === SHOT_VALUE.WATER ? 'border-blue-400 border-2' : '',
+                    c.player[PLAYER.COMPUTER].shot === SHOT_VALUE.TOUCH ? 'bg-red-400' : '',
+                    c.over && !isConflict && boatToSet ? 'bg-slate-200' : '',
+                    c.over && isConflict && boatToSet ? 'bg-red-200 relative' : '',
+                    !hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-500' : '',
+                    hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-50' : '',
+                  ].join(' ')}>
+                </div>
               </div>)}
             </div>
           })}
