@@ -5,6 +5,7 @@ import { randomNumber } from './utils';
 import { TPOSITION, BOARD_ITEM, TPLAYER_TYPE } from './types';
 import { BOARD_SIZE, BOATS, POSITION, PLAYER, SHOT_VALUE } from './constants';
 import { createBoard, generateItems } from './methods';
+import { Board } from './components';
 
 let boatsForPlayer = structuredClone(BOATS.map(b => ({
   ...b,
@@ -276,7 +277,7 @@ function App() {
   }, []);
 
 
-//////////////////////////////////////////////
+// computer and player score 
 const totalPosibleScores = BOATS.map((boat) => boat.squares).reduce((a, b) => a + b, 0);
 
 const humanScores = useMemo(() => {
@@ -301,7 +302,7 @@ const humanWins = useMemo(() => {
 
 
 
-  /////////////////////////////////////////////////
+  //
   const computerTurnAction = useCallback(async () => {
     await new Promise((resolve) => setTimeout(() => resolve(null), 1000));
 
@@ -342,6 +343,15 @@ const humanWins = useMemo(() => {
     window.location.reload();
   };
 
+  const onClickBoxOnHumanBoard = ({ box }: BOARD_BOX) => {
+    if (gameReady) {
+      onClickBoxToShotHandler({ box });
+    } else {
+      onClickToSetBoatHandler();
+    }
+  }
+
+
   if (computerWins) {
     return <div className='flex'>
       <div className='absolute z-10 inset-0 w-full h-full bg-white text-red-600 flex items-center justify-center flex-col'>
@@ -360,7 +370,7 @@ const humanWins = useMemo(() => {
 
   if (humanWins) {
     return <div className='flex'>
-      <div className='absolute z-10 inset-0 w-full h-full bg-white text-red-600 flex items-center justify-center flex-col'>
+      <div className='absolute z-10 inset-0 w-full h-full bg-white text-green-600 flex items-center justify-center flex-col'>
         <div className='text-8xl'>
           You win!!!
         </div>
@@ -381,35 +391,14 @@ const humanWins = useMemo(() => {
           {turn === PLAYER.COMPUTER && <div className='absolute inset-0 w-full h-full bg-white bg-opacity-80 flex items-center justify-center'>
             Computer is thinking
           </div>}
-          {board.map((r, rowKey) => {
-            return <div key={rowKey} className='flex'>
-              {r.map((c: any) => <div
-                className='flex'
-                key={c.label}
-                data-position={
-                  `{ "col": ${c.col}, "row": ${c.row}, "box": ${c.box} }`
-                }
-                onMouseOver={() => onMouseOverToSetBoatHandler(c)}
-                onClick={() => gameReady
-                  ? onClickBoxToShotHandler({ box: c.box })
-                  : onClickToSetBoatHandler()
-                }
-                >
-                <div
-                  className={[
-                    "w-[50px] h-[50px] flex items-center justify-center text-xs border border-solid flex-col",
-                    c.player[PLAYER.HUMAN].shot === SHOT_VALUE.TOUCH ? 'border-red-400 border-2' : '',
-                    c.player[PLAYER.HUMAN].shot === SHOT_VALUE.WATER ? 'border-blue-400 border-2' : '',
-                    c.player[PLAYER.COMPUTER].shot === SHOT_VALUE.TOUCH ? 'bg-red-400' : '',
-                    c.over && !isConflict && boatToSet ? 'bg-slate-200' : '',
-                    c.over && isConflict && boatToSet ? 'bg-red-200 relative' : '',
-                    !hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-500' : '',
-                    hideBoats && c.player[PLAYER.HUMAN].filled ? 'bg-blue-50' : '',
-                  ].join(' ')}>
-                </div>
-              </div>)}
-            </div>
-          })}
+          <Board
+                  board={board}
+                  isConflict={isConflict}
+                  onMouseOver={onMouseOverToSetBoatHandler}
+                  onClick={onClickBoxOnHumanBoard}
+                  boatToSet={boatToSet}
+                  hideBoats={hideBoats}
+                />
         </div>
 
       {!gameReady && <div className='w-full bg-slate-50 p-4'>

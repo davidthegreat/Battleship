@@ -1,1 +1,1 @@
-export { default as PlayerBoardView } from "./board-view.component";
+export { default as Board } from "./board.component";
