@@ -1,0 +1,1702 @@
+[
+	{
+			"box": 1,
+			"col": 1,
+			"row": 1,
+			"label": "A1",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 2,
+			"col": 2,
+			"row": 1,
+			"label": "B1",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 3,
+			"col": 3,
+			"row": 1,
+			"label": "C1",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 4,
+			"col": 4,
+			"row": 1,
+			"label": "D1",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 5,
+			"col": 5,
+			"row": 1,
+			"label": "E1",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 6,
+			"col": 6,
+			"row": 1,
+			"label": "F1",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 7,
+			"col": 7,
+			"row": 1,
+			"label": "G1",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 8,
+			"col": 8,
+			"row": 1,
+			"label": "H1",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 9,
+			"col": 9,
+			"row": 1,
+			"label": "I1",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 10,
+			"col": 10,
+			"row": 1,
+			"label": "J1",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 11,
+			"col": 1,
+			"row": 2,
+			"label": "A2",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 12,
+			"col": 2,
+			"row": 2,
+			"label": "B2",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 13,
+			"col": 3,
+			"row": 2,
+			"label": "C2",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 14,
+			"col": 4,
+			"row": 2,
+			"label": "D2",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 15,
+			"col": 5,
+			"row": 2,
+			"label": "E2",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 16,
+			"col": 6,
+			"row": 2,
+			"label": "F2",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 17,
+			"col": 7,
+			"row": 2,
+			"label": "G2",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 18,
+			"col": 8,
+			"row": 2,
+			"label": "H2",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 19,
+			"col": 9,
+			"row": 2,
+			"label": "I2",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 20,
+			"col": 10,
+			"row": 2,
+			"label": "J2",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 21,
+			"col": 1,
+			"row": 3,
+			"label": "A3",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 22,
+			"col": 2,
+			"row": 3,
+			"label": "B3",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 23,
+			"col": 3,
+			"row": 3,
+			"label": "C3",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 24,
+			"col": 4,
+			"row": 3,
+			"label": "D3",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 25,
+			"col": 5,
+			"row": 3,
+			"label": "E3",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 26,
+			"col": 6,
+			"row": 3,
+			"label": "F3",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 27,
+			"col": 7,
+			"row": 3,
+			"label": "G3",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 28,
+			"col": 8,
+			"row": 3,
+			"label": "H3",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 29,
+			"col": 9,
+			"row": 3,
+			"label": "I3",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 30,
+			"col": 10,
+			"row": 3,
+			"label": "J3",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 31,
+			"col": 1,
+			"row": 4,
+			"label": "A4",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 32,
+			"col": 2,
+			"row": 4,
+			"label": "B4",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 33,
+			"col": 3,
+			"row": 4,
+			"label": "C4",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 34,
+			"col": 4,
+			"row": 4,
+			"label": "D4",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 35,
+			"col": 5,
+			"row": 4,
+			"label": "E4",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 36,
+			"col": 6,
+			"row": 4,
+			"label": "F4",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 37,
+			"col": 7,
+			"row": 4,
+			"label": "G4",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 38,
+			"col": 8,
+			"row": 4,
+			"label": "H4",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 39,
+			"col": 9,
+			"row": 4,
+			"label": "I4",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 40,
+			"col": 10,
+			"row": 4,
+			"label": "J4",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 41,
+			"col": 1,
+			"row": 5,
+			"label": "A5",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 42,
+			"col": 2,
+			"row": 5,
+			"label": "B5",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 43,
+			"col": 3,
+			"row": 5,
+			"label": "C5",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 44,
+			"col": 4,
+			"row": 5,
+			"label": "D5",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 45,
+			"col": 5,
+			"row": 5,
+			"label": "E5",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 46,
+			"col": 6,
+			"row": 5,
+			"label": "F5",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 47,
+			"col": 7,
+			"row": 5,
+			"label": "G5",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 48,
+			"col": 8,
+			"row": 5,
+			"label": "H5",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 49,
+			"col": 9,
+			"row": 5,
+			"label": "I5",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 50,
+			"col": 10,
+			"row": 5,
+			"label": "J5",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 51,
+			"col": 1,
+			"row": 6,
+			"label": "A6",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 52,
+			"col": 2,
+			"row": 6,
+			"label": "B6",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 53,
+			"col": 3,
+			"row": 6,
+			"label": "C6",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 54,
+			"col": 4,
+			"row": 6,
+			"label": "D6",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 55,
+			"col": 5,
+			"row": 6,
+			"label": "E6",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 56,
+			"col": 6,
+			"row": 6,
+			"label": "F6",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 57,
+			"col": 7,
+			"row": 6,
+			"label": "G6",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 58,
+			"col": 8,
+			"row": 6,
+			"label": "H6",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 59,
+			"col": 9,
+			"row": 6,
+			"label": "I6",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 60,
+			"col": 10,
+			"row": 6,
+			"label": "J6",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 61,
+			"col": 1,
+			"row": 7,
+			"label": "A7",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 62,
+			"col": 2,
+			"row": 7,
+			"label": "B7",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 63,
+			"col": 3,
+			"row": 7,
+			"label": "C7",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 64,
+			"col": 4,
+			"row": 7,
+			"label": "D7",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 65,
+			"col": 5,
+			"row": 7,
+			"label": "E7",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 66,
+			"col": 6,
+			"row": 7,
+			"label": "F7",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 67,
+			"col": 7,
+			"row": 7,
+			"label": "G7",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 68,
+			"col": 8,
+			"row": 7,
+			"label": "H7",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 69,
+			"col": 9,
+			"row": 7,
+			"label": "I7",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 70,
+			"col": 10,
+			"row": 7,
+			"label": "J7",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 71,
+			"col": 1,
+			"row": 8,
+			"label": "A8",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 72,
+			"col": 2,
+			"row": 8,
+			"label": "B8",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 73,
+			"col": 3,
+			"row": 8,
+			"label": "C8",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 74,
+			"col": 4,
+			"row": 8,
+			"label": "D8",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 75,
+			"col": 5,
+			"row": 8,
+			"label": "E8",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 76,
+			"col": 6,
+			"row": 8,
+			"label": "F8",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 77,
+			"col": 7,
+			"row": 8,
+			"label": "G8",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 78,
+			"col": 8,
+			"row": 8,
+			"label": "H8",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 79,
+			"col": 9,
+			"row": 8,
+			"label": "I8",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 80,
+			"col": 10,
+			"row": 8,
+			"label": "J8",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 81,
+			"col": 1,
+			"row": 9,
+			"label": "A9",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 82,
+			"col": 2,
+			"row": 9,
+			"label": "B9",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 83,
+			"col": 3,
+			"row": 9,
+			"label": "C9",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 84,
+			"col": 4,
+			"row": 9,
+			"label": "D9",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 85,
+			"col": 5,
+			"row": 9,
+			"label": "E9",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 86,
+			"col": 6,
+			"row": 9,
+			"label": "F9",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 87,
+			"col": 7,
+			"row": 9,
+			"label": "G9",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 88,
+			"col": 8,
+			"row": 9,
+			"label": "H9",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 89,
+			"col": 9,
+			"row": 9,
+			"label": "I9",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 90,
+			"col": 10,
+			"row": 9,
+			"label": "J9",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 91,
+			"col": 1,
+			"row": 10,
+			"label": "A10",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 92,
+			"col": 2,
+			"row": 10,
+			"label": "B10",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 93,
+			"col": 3,
+			"row": 10,
+			"label": "C10",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 94,
+			"col": 4,
+			"row": 10,
+			"label": "D10",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 95,
+			"col": 5,
+			"row": 10,
+			"label": "E10",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 96,
+			"col": 6,
+			"row": 10,
+			"label": "F10",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 97,
+			"col": 7,
+			"row": 10,
+			"label": "G10",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 98,
+			"col": 8,
+			"row": 10,
+			"label": "H10",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 99,
+			"col": 9,
+			"row": 10,
+			"label": "I10",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	},
+	{
+			"box": 100,
+			"col": 10,
+			"row": 10,
+			"label": "J10",
+			"over": false,
+			"player": {
+					"human": {
+							"filled": null,
+							"shot": null
+					},
+					"computer": {
+							"filled": null,
+							"shot": null
+					}
+			}
+	}
+]

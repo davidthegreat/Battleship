@@ -187,9 +187,10 @@ function App() {
   }, [gameStarted])
 
   const board = useMemo(() => {
+    console.log(items,"itemssss333")
     return createBoard(items);
   }, [items])
-
+  console.log(board,"boardddllll")
   const onClickStartGame = useCallback(() => {
     if (playersAreReady) {
       setGameReady(true);

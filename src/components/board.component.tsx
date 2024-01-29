@@ -36,7 +36,7 @@ const Board = ({
 							!hideBoats && item.player[PLAYER.HUMAN].filled ? 'bg-blue-500' : '',
 							hideBoats && item.player[PLAYER.HUMAN].filled ? 'bg-blue-50' : '',
 						].join(' ')}
-					>{item.label}</div>
+					></div>
 				)}
 			</div>
 		})}
